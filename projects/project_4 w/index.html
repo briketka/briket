@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="panel">
+        
+        <div class="tabs">
+            <input type="radio" name="inset" value="" id="tab_1" checked>
+            <label for="tab_1">Количество Размеры Опции</label>
+        
+            <input type="radio" name="inset" value="" id="tab_2">
+            <label for="tab_2">Цвета Прозрачность</label>
+        
+            <input type="radio" name="inset" value="" id="tab_3">
+            <label for="tab_3">Отображение Эффекты</label>
+        
+            <input type="radio" name="inset" value="" id="tab_4">
+            <label for="tab_4">Гравитация</label>
+
+        
+            <div id="txt_1">               
+                <h4>Количество</h4>
+                <div class="block">
+                    <div class="set">
+                        <input type="range" class="range" id="nMax">nMax
+                        <input type="number" class="input" id="nMax_output">
+                    </div>
+                </div>
+                <br>
+                <br>
+                <hr noshade>
+
+                <h4>Размеры</h4>
+                <div class="block"> 
+                    <div class="set">
+                        <input type="range" class="range" id="rMax">rMax
+                        <input type="number" class="input" id="rMax_output">
+                    </div>
+                
+                    <div class="set">
+                        <input type="range" class="range" id="rMin">rMin
+                        <input type="number" class="input" id="rMin_output">
+                    </div>                      
+                </div>
+                <br>
+                <br>
+                <hr noshade>
+
+                <h4>Опции</h4>
+                    <div class="block">
+                        <label><div class="set"><input type="checkbox" id="ball_create">автомат. генер. шаров</div></label>
+                        <label><div class="set"><input type="checkbox" id="ball_size_rost" checked>рост разм. шаров</div></label>         
+                    </div> 
+            </div>
+
+            <div id="txt_2">
+                <h4>Цвета</h4>
+                <div class="block">
+                    <div class="set">
+                        <label><input type="radio" name="color_fon" value="#101025" checked></label>
+                        <label><input type="radio" name="color_fon" value="black"></label>
+                        <label><input type="radio" name="color_fon" value="red"></label>
+                        <label><input type="radio" name="color_fon" value="green"></label>
+                        <label><input type="radio" name="color_fon" value="blue"></label>
+                        <label><input type="radio" name="color_fon" value="grey"></label>
+                        <label><input type="radio" name="color_fon" value="white">фон</label>
+                    </div>   
+                    
+                    <div class="set">               
+                        <input type="radio" name="color_greatBall" value="red" checked>
+                        <input type="radio" name="color_greatBall" value="black">
+                        <input type="radio" name="color_greatBall" value="red" >
+                        <input type="radio" name="color_greatBall" value="green">
+                        <input type="radio" name="color_greatBall" value="blue">
+                        <input type="radio" name="color_greatBall" value="grey">
+                        <input type="radio" name="color_greatBall" value="white">главн. шар
+                    </div>
+
+                    <div class="set">
+                        <input type="radio" name="color_ball_array" value="color_array_1" checked>
+                        <input type="radio" name="color_ball_array" value="color_array_2">
+                        <input type="radio" name="color_ball_array" value="color_array_3">
+                        <input type="radio" name="color_ball_array" value="color_array_4">
+                        <input type="radio" name="color_ball_array" value="color_array_5">
+                        <input type="radio" name="color_ball_array" value="color_array_6">
+                        <input type="radio" name="color_ball_array" value="color_array_7">массив
+                    </div>
+                    <br>
+                    <br>
+                    <hr noshade>
+                
+                <h4>Прозрачность</h4>
+                <div class="block">
+                    <label><div class="set"><input type="checkbox" id="paint_color_alpha_ball_way">шар от длины</div></label>
+                    <label><div class="set"><input type="checkbox" id="paint_color_alpha_ball_old">шар от возраста</div></label>
+                    <br>
+                    <label><div class="set"><input type="checkbox" id="paint_color_alpha_contur_way">контур от длины</div></label>
+                    <label><div class="set"><input type="checkbox" id="paint_color_alpha_contur_old">контур возраста</div></label>
+                </div>    
+            </div>
+                
+            </div>
+            <div id="txt_3">
+                <h4>Отображение</h4>
+                <div class="block">
+                    <label><div class="set"><input type="checkbox" id="clearCanvas" checked>очистка экрана</div></label>
+                    <label><div class="set"><input type="checkbox" id="paint_greatBall">главный шар</div></label>
+                    <label><div class="set"><input type="checkbox" id="paint_ball" checked>шары</div></label>
+                    <label><div class="set"><input type="checkbox" id="paint_fon">фон</div></label>
+                    <label><div class="set"><input type="checkbox" id="paint_text">текст</div></label>
+                    <label><div class="set"><input type="checkbox" id="paint_window">окно</div></label>
+                    <label><div class="set"><input type="checkbox" id="paint_apple">apple</div></label>
+                </div>
+                <br>
+                <br>
+                <hr noshade>
+
+                <h4>Эффекты</h4>
+                <div class="block">
+                    <label><div class="set"><input type="checkbox" id="shadow">тени</div></label>
+                    <label><div class="set"><input type="checkbox" id="parallax">параллакс</div></label>
+                </div>
+            </div>
+
+            <div id="txt_4">
+                <h4>Гравитация</h4>
+                <div class="block">
+                    
+                    <label><div class="set"><input type="checkbox" id="ball_gravitation_to_greatBall" checked>гравитация к главному шару</div></label>
+                    <br>
+                    <div class="set">
+                        <input type="range" class="range" id="ball_gravitation_to_greatBall_parametr">
+                        <input type="number" class="input" id="ball_gravitation_to_greatBall_parametr_output">
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <label><div class="set"><input type="checkbox" id="ball_antiGravitation_to_greatBall" checked>антигравитация главного шара</div></label>
+                    <br>
+                    <div class="set">
+                        <input type="range" class="range" id="ball_antiGravitation_to_greatBall_parametr">
+                        <input type="number" class="input" id="ball_antiGravitation_to_greatBall_parametr_output">
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <label><div class="set"><input type="checkbox" id="ball_antiGravitation_together" checked>антигравитация между собой</div></label>
+                    <br>
+                    <div class="set">
+                        <input type="range" class="range" id="ball_antiGravitation_together_parametr">
+                        <input type="number" class="input" id="ball_antiGravitation_together_parametr_output">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <canvas id="canvas"></canvas>
+    <script src="script.js"></script>
+</body>
+
+</html>

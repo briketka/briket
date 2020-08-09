@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<widget id="calc" version="0.0.1">
+        
+        <name>Calculator</name>
+        <description>Calculator</description>
+        <author>KVS</author>
+
+        <!-- Define the main entry-point to the application -->
+        <content src="index.html" />
+
+        <access origin="*" />
+        <!-- <icon src="../img/icon.ico" /> -->
+
+        <!-- Customize your app and platform with the preference element. -->
+        <preference name="DisallowOverscroll" value="true" />
+
+
+        <platform name="android">
+            <allow-intent href="" />
+        </platform>
+
+  	<!-- Customize your app and platform with the preference element. -->
+   	 <preference name="DisallowOverscroll" value="true" />
+
+</widget>
+
+
+
+
+  
+
+
+
+    

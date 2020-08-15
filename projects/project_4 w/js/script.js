@@ -112,12 +112,12 @@ function init() {
     // let texture_rt = new THREE.TextureLoader().load('../img/penguins/penguins (21)/meadow_rt.jpg');
     // let texture_lf = new THREE.TextureLoader().load('../img/penguins/penguins (21)/meadow_lf.jpg');
 
-    let texture_ft = new THREE.TextureLoader().load('../img/penguins/penguins (23)/morning_ft.jpg');
-    let texture_bk = new THREE.TextureLoader().load('../img/penguins/penguins (23)/morning_bk.jpg');
-    let texture_up = new THREE.TextureLoader().load('../img/penguins/penguins (23)/morning_up.jpg');
-    let texture_dn = new THREE.TextureLoader().load('../img/penguins/penguins (23)/morning_dn.jpg');
-    let texture_rt = new THREE.TextureLoader().load('../img/penguins/penguins (23)/morning_rt.jpg');
-    let texture_lf = new THREE.TextureLoader().load('../img/penguins/penguins (23)/morning_lf.jpg');
+    let texture_ft = new THREE.TextureLoader().load('img/penguins/penguins (23)/morning_ft.jpg');
+    let texture_bk = new THREE.TextureLoader().load('img/penguins/penguins (23)/morning_bk.jpg');
+    let texture_up = new THREE.TextureLoader().load('img/penguins/penguins (23)/morning_up.jpg');
+    let texture_dn = new THREE.TextureLoader().load('img/penguins/penguins (23)/morning_dn.jpg');
+    let texture_rt = new THREE.TextureLoader().load('img/penguins/penguins (23)/morning_rt.jpg');
+    let texture_lf = new THREE.TextureLoader().load('img/penguins/penguins (23)/morning_lf.jpg');
 
     // let texture_ft = new THREE.TextureLoader().load('../img/penguins/penguins (27)/paze_ft.jpg');
     // let texture_bk = new THREE.TextureLoader().load('../img/penguins/penguins (27)/paze_bk.jpg');
@@ -205,7 +205,7 @@ function init() {
 
     // ground
 
-    var groundTexture = loader.load( '../img/grasslight-big.jpg' );
+    var groundTexture = loader.load( 'img/grasslight-big.jpg' );
     groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping;
     groundTexture.repeat.set( 300, 300 );
     groundTexture.anisotropy = 16;

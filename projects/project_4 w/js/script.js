@@ -509,9 +509,9 @@ let h_human;
             let k_uskorenia = 100 ; // кэффицинет ускорения , чем больше тем больше скорость
 
             if ( moveForward ) velocity.z -= k_uskorenia * deltaTimeSec * keyE; // нарастание скорости
-            if ( moveBackward ) velocity.z += k_uskorenia * deltaTimeSec;
-            if ( moveLeft ) velocity.x -= k_uskorenia * deltaTimeSec;
-            if ( moveRight ) velocity.x += k_uskorenia * deltaTimeSec;
+            if ( moveBackward ) velocity.z += k_uskorenia * deltaTimeSec * keyE;
+            if ( moveLeft ) velocity.x -= k_uskorenia * deltaTimeSec * keyE;
+            if ( moveRight ) velocity.x += k_uskorenia * deltaTimeSec * keyE;
 
             controls.getObject().translateX( velocity.x * deltaTimeSec );
             controls.getObject().translateY( velocity.y * deltaTimeSec );

@@ -72,7 +72,7 @@ function init() {
         geometryBox_1.faces[i].color.setRGB(Math.random(),Math.random(),Math.random())
     }
     let meshBox_1 = new THREE.Mesh(geometryBox_1,materialBox);
-    meshBox_1.position.set(2 , 0.5 , 2 );
+    meshBox_1.position.set(2 , 0.0 , 2 );
     
     scene.add(meshBox_1);
 
@@ -81,10 +81,32 @@ function init() {
 
     let geometryBox_2 = new THREE.BoxGeometry(1,1,1);
     let meshBox_2 = new THREE.Mesh(geometryBox_2, poleMat);
-    meshBox_2.position.set(-3 , 0.5, 4 );
+    meshBox_2.position.set(-3 , 0.0, 4 );
     meshBox_2.receiveShadow = true;
     meshBox_2.castShadow = true;
     scene.add(meshBox_2);
+
+
+    // obj 3
+
+    var material = new THREE.LineBasicMaterial({
+        color: 0x0000ff
+    });
+
+
+    let myEve_x = 0;
+    let myEve_y = 0;
+    let myEve_z = 0;
+
+    
+    var points = [];
+    points.push( new THREE.Vector3( - 10, 0, 0 ) );
+    points.push( new THREE.Vector3( -10 + myEve_x , 10 + myEve_y, 0 + myEve_z ) );
+    
+    var geometry = new THREE.BufferGeometry().setFromPoints( points );
+    
+    var line = new THREE.Line( geometry, material );
+    scene.add( line );
 
 
     // obj 2
@@ -214,7 +236,7 @@ function init() {
     var groundMaterial = new THREE.MeshLambertMaterial( { map: groundTexture } );
 
     var mesh = new THREE.Mesh( new THREE.PlaneBufferGeometry( 2000, 2000 ), groundMaterial );
-    mesh.position.y = - 0.0;
+    mesh.position.y = - 0.5;
     mesh.rotation.x = - Math.PI / 2;
     mesh.receiveShadow = true;
     scene.add( mesh );
@@ -299,16 +321,7 @@ function init() {
     var moveLeft = false;
     var moveRight = false;
     var canJump = false;
-    var prevTime = performance.now(); // для времени
-    var velocity = new THREE.Vector3();
-
-   
-
-    var myVectorEve = new THREE.Vector3();
-
-
-    // scene.add( controls.getObject() ); // ни на что не влияет
-
+    let prised = false;
 
 
     let onKeyDown = function (event) {
@@ -340,7 +353,10 @@ function init() {
         case 32: // space
             if ( canJump === true ) velocity.y += 35; // 350
             canJump = false;
-            break; 
+            break;
+        case 81: // q
+            prised = true;
+            break;    
         }
     };
 
@@ -369,6 +385,9 @@ function init() {
         case 69: // e
             // controls.moveRight(.25)
             keyE_min();
+            break;
+            case 81: // q
+            prised = false;
             break;    
         }
     };
@@ -389,7 +408,7 @@ function init() {
             }
 
         if(event.which == 3) { // – правая кнопка
-            keyE_max();
+            
             }        
     }
 
@@ -404,7 +423,7 @@ function init() {
             }
 
         if(event.which == 3) { // – правая кнопка
-            keyE_min(); 
+            
             }        
     }
 
@@ -445,13 +464,23 @@ for ( var i = 0; i < 1000; i ++ ) {
 
 
 
-
+var prevTime = performance.now(); // для времени
+var velocity = new THREE.Vector3();  
     
-    let speed = 0 ;
+   
+var myVectorEve = new THREE.Vector3();
 
 
+let h_human;
 
     function animate() {
+
+        if (prised) {
+            h_human = 1;
+        }
+        else {
+            h_human = 2;
+        }
 
 
         controls.getDirection(myVectorEve);
@@ -468,7 +497,9 @@ for ( var i = 0; i < 1000; i ++ ) {
             velocity.x -= velocity.x * k_zameddlenia * deltaTimeSec; // замедление скорости
             velocity.z -= velocity.z * k_zameddlenia * deltaTimeSec;
     
-            // velocity.y -= 9.8 * 10.0 * deltaTimeSec; // 100.0 = mass
+            if (controls.getObject().position.y > h_human ) {
+            velocity.y -= 9.8 * 10.0 * deltaTimeSec; // 100.0 = mass
+            }    
 
             // if ( moveForward ) controls.moveForward(.25 * keyE);
             // if ( moveBackward ) controls.moveForward(-.25);
@@ -486,20 +517,17 @@ for ( var i = 0; i < 1000; i ++ ) {
             controls.getObject().translateY( velocity.y * deltaTimeSec );
             controls.getObject().translateZ( velocity.z * deltaTimeSec );
 
-
-            if ( controls.getObject().position.y < 2 ) { // позиция по высоте
+            if ( controls.getObject().position.y < h_human ) { // позиция по высоте
                 velocity.y = 0; //
-                controls.getObject().position.y = 2; // 
-                canJump = true;  //               
+                controls.getObject().position.y = h_human; // 
+                canJump = true;  //   
+                
+                
+
+            // myEve_x = camera.position.x;  
+
 
             }
-
-            console.log(`velocity.x = ${velocity.x}`);
-            console.log(`velocity.y = ${velocity.y}`);
-            console.log(`velocity.z = ${velocity.z}`);
-            console.log(controls.getObject().position.x);
-            console.log(controls.getObject().position.y);
-            console.log(controls.getObject().position.z);
             
         }
 

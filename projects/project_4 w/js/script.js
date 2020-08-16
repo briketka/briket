@@ -1,11 +1,9 @@
 "use strict";
   
-
 import * as THREE from "../lib/three/three.module.js";
 // import { OrbitControls } from '../lib/three/OrbitControls.js';
 import { PointerLockControls } from '../lib/three/PointerLockControls.js';
 import Stats from "../lib/three/stats.module.js";
-
 
 function init() {
 
@@ -32,29 +30,22 @@ function init() {
 
     // lights
 
-    scene.add( new THREE.AmbientLight( 0x666666 ) );
+    let light_1 = new THREE.AmbientLight( 0x666666 );
+    scene.add( light_1 );
 
-
-    var light = new THREE.DirectionalLight( 0xdfebff, 1 );
-    light.position.set( 50, 200, 100 );
-
-    light.position.multiplyScalar( 1.3 );
-
-    light.castShadow = true;
-
-    light.shadow.mapSize.width = 1024;
-    light.shadow.mapSize.height = 1024;
-
-    var d = 300;
-
-    light.shadow.camera.left = - d;
-    light.shadow.camera.right = d;
-    light.shadow.camera.top = d;
-    light.shadow.camera.bottom = - d;
-
-    light.shadow.camera.far = 1000;
-
-    scene.add( light );
+    let light_2 = new THREE.DirectionalLight( 0xdfebff, 1 );
+    light_2.position.set( 50, 200, 100 );
+    light_2.position.multiplyScalar( 1.3 );
+    light_2.castShadow = true;
+    light_2.shadow.mapSize.width = 1024;
+    light_2.shadow.mapSize.height = 1024;
+    let d = 300;
+    light_2.shadow.camera.left = - d;
+    light_2.shadow.camera.right = d;
+    light_2.shadow.camera.top = d;
+    light_2.shadow.camera.bottom = - d;
+    light_2.shadow.camera.far = 1000;
+    scene.add( light_2 );
 
 
     // loader
@@ -64,126 +55,86 @@ function init() {
 
     // obj 1
 
-    var poleMat = new THREE.MeshLambertMaterial();
-
-    let geometryBox_1 = new THREE.BoxGeometry(1,1,1);
-    let materialBox = new THREE.MeshBasicMaterial({color: 0xffffff, vertexColors: THREE.FaceColors});
-    for (let i=0; i < geometryBox_1.faces.length; i++) {
-        geometryBox_1.faces[i].color.setRGB(Math.random(),Math.random(),Math.random())
+    let geometry_Obj_1 = new THREE.BoxGeometry(1,1,1);
+    let material_Obj_1 = new THREE.MeshBasicMaterial({color: 0xffffff, vertexColors: THREE.FaceColors});
+    for (let i=0; i < geometry_Obj_1.faces.length; i++) {
+        geometry_Obj_1.faces[i].color.setRGB(Math.random(),Math.random(),Math.random())
     }
-    let meshBox_1 = new THREE.Mesh(geometryBox_1,materialBox);
-    meshBox_1.position.set(2 , 0.0 , 2 );
-    
-    scene.add(meshBox_1);
+    let mesh_Obj_1 = new THREE.Mesh(geometry_Obj_1,material_Obj_1);
+    mesh_Obj_1.position.set(2 , 0.0 , 2 );   
+    scene.add(mesh_Obj_1);
 
 
     // obj 2
 
-    let geometryBox_2 = new THREE.BoxGeometry(1,1,1);
-    let meshBox_2 = new THREE.Mesh(geometryBox_2, poleMat);
-    meshBox_2.position.set(-3 , 0.0, 4 );
-    meshBox_2.receiveShadow = true;
-    meshBox_2.castShadow = true;
-    scene.add(meshBox_2);
+    let geometry_Obj_2 = new THREE.BoxGeometry(1,1,1);
+    let material_Obj_2 = new THREE.MeshLambertMaterial();
+    let mesh_Obj_2 = new THREE.Mesh(geometry_Obj_2, material_Obj_2);
+    mesh_Obj_2.position.set(-3 , 0.0, 4 );
+    mesh_Obj_2.receiveShadow = true;
+    mesh_Obj_2.castShadow = true;
+    scene.add(mesh_Obj_2);
 
 
     // obj 3
 
-    var material = new THREE.LineBasicMaterial({
-        color: 0x0000ff
-    });
-
-
     let myEve_x = 0;
     let myEve_y = 0;
     let myEve_z = 0;
-
-    
-    var points = [];
-    points.push( new THREE.Vector3( - 10, 0, 0 ) );
-    points.push( new THREE.Vector3( -10 + myEve_x , 10 + myEve_y, 0 + myEve_z ) );
-    
-    var geometry = new THREE.BufferGeometry().setFromPoints( points );
-    
-    var line = new THREE.Line( geometry, material );
-    scene.add( line );
+   
+    let points_Obj_3 = [];
+    points_Obj_3.push( new THREE.Vector3( - 10, 0, 0 ) );
+    points_Obj_3.push( new THREE.Vector3( -10 + myEve_x , 10 + myEve_y, 0 + myEve_z ) );
+   
+    let geometry_Obj_3 = new THREE.BufferGeometry().setFromPoints( points_Obj_3 );
+    let material_Obj_3 = new THREE.LineBasicMaterial({
+        color: 0x0000ff
+    });   
+    let mash_Obj_3 = new THREE.Line( geometry_Obj_3, material_Obj_3 );
+    scene.add( mash_Obj_3 );
 
 
     // obj 2
 
-    let materialArray = [];
+    let material_Obj_4_Array = [];
 
-    // let texture_ft = new THREE.TextureLoader().load('../img/penguins/penguins (1)/mystic_ft.jpg');
-    // let texture_bk = new THREE.TextureLoader().load('../img/penguins/penguins (1)/mystic_bk.jpg');
-    // let texture_up = new THREE.TextureLoader().load('../img/penguins/penguins (1)/mystic_up.jpg');
-    // let texture_dn = new THREE.TextureLoader().load('../img/penguins/penguins (1)/mystic_dn.jpg');
-    // let texture_rt = new THREE.TextureLoader().load('../img/penguins/penguins (1)/mystic_rt.jpg');
-    // let texture_lf = new THREE.TextureLoader().load('../img/penguins/penguins (1)/mystic_lf.jpg');
-
-    // let texture_ft = new THREE.TextureLoader().load('../img/penguins/penguins (15)/haze_ft.jpg');
-    // let texture_bk = new THREE.TextureLoader().load('../img/penguins/penguins (15)/haze_bk.jpg');
-    // let texture_up = new THREE.TextureLoader().load('../img/penguins/penguins (15)/haze_up.jpg');
-    // let texture_dn = new THREE.TextureLoader().load('../img/penguins/penguins (15)/haze_dn.jpg');
-    // let texture_rt = new THREE.TextureLoader().load('../img/penguins/penguins (15)/haze_rt.jpg');
-    // let texture_lf = new THREE.TextureLoader().load('../img/penguins/penguins (15)/haze_lf.jpg');
-
-    // let texture_ft = new THREE.TextureLoader().load('../img/penguins/penguins (21)/meadow_ft.jpg');
-    // let texture_bk = new THREE.TextureLoader().load('../img/penguins/penguins (21)/meadow_bk.jpg');
-    // let texture_up = new THREE.TextureLoader().load('../img/penguins/penguins (21)/meadow_up.jpg');
-    // let texture_dn = new THREE.TextureLoader().load('../img/penguins/penguins (21)/meadow_dn.jpg');
-    // let texture_rt = new THREE.TextureLoader().load('../img/penguins/penguins (21)/meadow_rt.jpg');
-    // let texture_lf = new THREE.TextureLoader().load('../img/penguins/penguins (21)/meadow_lf.jpg');
-
+    // let texture_ft = new THREE.TextureLoader().load('img/penguins/penguins (1)/mystic_ft.jpg');
+    // let texture_bk = new THREE.TextureLoader().load('img/penguins/penguins (1)/mystic_bk.jpg');
+    // let texture_up = new THREE.TextureLoader().load('img/penguins/penguins (1)/mystic_up.jpg');
+    // let texture_dn = new THREE.TextureLoader().load('img/penguins/penguins (1)/mystic_dn.jpg');
+    // let texture_rt = new THREE.TextureLoader().load('img/penguins/penguins (1)/mystic_rt.jpg');
+    // let texture_lf = new THREE.TextureLoader().load('img/penguins/penguins (1)/mystic_lf.jpg');
+    
     let texture_ft = new THREE.TextureLoader().load('img/penguins/penguins (23)/morning_ft.jpg');
     let texture_bk = new THREE.TextureLoader().load('img/penguins/penguins (23)/morning_bk.jpg');
     let texture_up = new THREE.TextureLoader().load('img/penguins/penguins (23)/morning_up.jpg');
     let texture_dn = new THREE.TextureLoader().load('img/penguins/penguins (23)/morning_dn.jpg');
     let texture_rt = new THREE.TextureLoader().load('img/penguins/penguins (23)/morning_rt.jpg');
     let texture_lf = new THREE.TextureLoader().load('img/penguins/penguins (23)/morning_lf.jpg');
+  
+    // let texture_ft = new THREE.TextureLoader().load('img/penguins/penguins (29)/quirk_ft.jpg');
+    // let texture_bk = new THREE.TextureLoader().load('img/penguins/penguins (29)/quirk_bk.jpg');
+    // let texture_up = new THREE.TextureLoader().load('img/penguins/penguins (29)/quirk_up.jpg');
+    // let texture_dn = new THREE.TextureLoader().load('img/penguins/penguins (29)/quirk_dn.jpg');
+    // let texture_rt = new THREE.TextureLoader().load('img/penguins/penguins (29)/quirk_rt.jpg');
+    // let texture_lf = new THREE.TextureLoader().load('img/penguins/penguins (29)/quirk_lf.jpg');
 
-    // let texture_ft = new THREE.TextureLoader().load('../img/penguins/penguins (27)/paze_ft.jpg');
-    // let texture_bk = new THREE.TextureLoader().load('../img/penguins/penguins (27)/paze_bk.jpg');
-    // let texture_up = new THREE.TextureLoader().load('../img/penguins/penguins (27)/paze_up.jpg');
-    // let texture_dn = new THREE.TextureLoader().load('../img/penguins/penguins (27)/paze_dn.jpg');
-    // let texture_rt = new THREE.TextureLoader().load('../img/penguins/penguins (27)/paze_rt.jpg');
-    // let texture_lf = new THREE.TextureLoader().load('../img/penguins/penguins (27)/paze_lf.jpg');
+   
+    material_Obj_4_Array.push(new THREE.MeshBasicMaterial({map: texture_ft}));
+    material_Obj_4_Array.push(new THREE.MeshBasicMaterial({map: texture_bk}));
+    material_Obj_4_Array.push(new THREE.MeshBasicMaterial({map: texture_up}));
+    material_Obj_4_Array.push(new THREE.MeshBasicMaterial({map: texture_dn}));
+    material_Obj_4_Array.push(new THREE.MeshBasicMaterial({map: texture_rt}));
+    material_Obj_4_Array.push(new THREE.MeshBasicMaterial({map: texture_lf}));
 
-    // let texture_ft = new THREE.TextureLoader().load('../img/penguins/penguins (29)/quirk_ft.jpg');
-    // let texture_bk = new THREE.TextureLoader().load('../img/penguins/penguins (29)/quirk_bk.jpg');
-    // let texture_up = new THREE.TextureLoader().load('../img/penguins/penguins (29)/quirk_up.jpg');
-    // let texture_dn = new THREE.TextureLoader().load('../img/penguins/penguins (29)/quirk_dn.jpg');
-    // let texture_rt = new THREE.TextureLoader().load('../img/penguins/penguins (29)/quirk_rt.jpg');
-    // let texture_lf = new THREE.TextureLoader().load('../img/penguins/penguins (29)/quirk_lf.jpg');
-
-    // let texture_ft = new THREE.TextureLoader().load('../img/penguins/penguins (44)/yonder_ft.jpg');
-    // let texture_bk = new THREE.TextureLoader().load('../img/penguins/penguins (44)/yonder_bk.jpg');
-    // let texture_up = new THREE.TextureLoader().load('../img/penguins/penguins (44)/yonder_up.jpg');
-    // let texture_dn = new THREE.TextureLoader().load('../img/penguins/penguins (44)/yonder_dn.jpg');
-    // let texture_rt = new THREE.TextureLoader().load('../img/penguins/penguins (44)/yonder_rt.jpg');
-    // let texture_lf = new THREE.TextureLoader().load('../img/penguins/penguins (44)/yonder_lf.jpg');
-
-    // let texture_ft = new THREE.TextureLoader().load('../img/penguins/penguins (45)/zeus_ft.jpg');
-    // let texture_bk = new THREE.TextureLoader().load('../img/penguins/penguins (45)/zeus_bk.jpg');
-    // let texture_up = new THREE.TextureLoader().load('../img/penguins/penguins (45)/zeus_up.jpg');
-    // let texture_dn = new THREE.TextureLoader().load('../img/penguins/penguins (45)/zeus_dn.jpg');
-    // let texture_rt = new THREE.TextureLoader().load('../img/penguins/penguins (45)/zeus_rt.jpg');
-    // let texture_lf = new THREE.TextureLoader().load('../img/penguins/penguins (45)/zeus_lf.jpg');
-
-    materialArray.push(new THREE.MeshBasicMaterial({map: texture_ft}));
-    materialArray.push(new THREE.MeshBasicMaterial({map: texture_bk}));
-    materialArray.push(new THREE.MeshBasicMaterial({map: texture_up}));
-    materialArray.push(new THREE.MeshBasicMaterial({map: texture_dn}));
-    materialArray.push(new THREE.MeshBasicMaterial({map: texture_rt}));
-    materialArray.push(new THREE.MeshBasicMaterial({map: texture_lf}));
-
-    for(let i=0;i<6;i++) {
-     materialArray[i].side = THREE.BackSide;
+    for(let i=0; i<6; i++) {
+        material_Obj_4_Array[i].side = THREE.BackSide;
     }
 
-    let skyboxGeo = new THREE.BoxGeometry(2000,2000,2000);  
-    let skybox = new THREE.Mesh(skyboxGeo , materialArray);
-    skybox.position.set(0 , 0 , 0 );
-    scene.add(skybox);
+    let gepmetry_Obj_4 = new THREE.BoxGeometry(2000,2000,2000);  
+    let mash_Obj_4 = new THREE.Mesh(gepmetry_Obj_4 , material_Obj_4_Array);
+    mash_Obj_4.position.set(0 , 0 , 0 );
+    scene.add(mash_Obj_4);
 
 
 //     // let grid_1 = new THREE.GridHelper(1000, 1000, 0xfffff, 0x0f0f3f);
@@ -214,74 +165,51 @@ function init() {
 
     // sphere
 
-    var ballGeo = new THREE.SphereBufferGeometry( 0.3, 32, 16 );
-    var ballMaterial = new THREE.MeshLambertMaterial();
-
-    var sphere = new THREE.Mesh( ballGeo, ballMaterial );
-    sphere.castShadow = true;
-    sphere.receiveShadow = true;
-    sphere.visible = true;
-    sphere.position.set(10,2,-20);
-    scene.add( sphere );
+    var geometry_Obj_5 = new THREE.SphereBufferGeometry( 0.3, 32, 16 );
+    var material_Obj_5 = new THREE.MeshLambertMaterial();
+    var mash_Obj_5 = new THREE.Mesh( geometry_Obj_5, material_Obj_5 );
+    mash_Obj_5.castShadow = true;
+    mash_Obj_5.receiveShadow = true;
+    mash_Obj_5.visible = true;
+    mash_Obj_5.position.set(10,2,-20);
+    scene.add( mash_Obj_5 );
 
 
     // ground
 
-    var groundTexture = loader.load( 'img/grasslight-big.jpg' );
-    groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping;
-    groundTexture.repeat.set( 300, 300 );
-    groundTexture.anisotropy = 16;
-    groundTexture.encoding = THREE.sRGBEncoding;
-
-    var groundMaterial = new THREE.MeshLambertMaterial( { map: groundTexture } );
-
-    var mesh = new THREE.Mesh( new THREE.PlaneBufferGeometry( 2000, 2000 ), groundMaterial );
-    mesh.position.y = - 0.5;
-    mesh.rotation.x = - Math.PI / 2;
-    mesh.receiveShadow = true;
-    scene.add( mesh );
+    let texture_Obj_6 = loader.load( 'img/grasslight-big.jpg' );
+    texture_Obj_6.wrapS = texture_Obj_6.wrapT = THREE.RepeatWrapping;
+    texture_Obj_6.repeat.set( 300, 300 );
+    texture_Obj_6.anisotropy = 16;
+    texture_Obj_6.encoding = THREE.sRGBEncoding;
+    let material_Obj_6 = new THREE.MeshLambertMaterial( { map: texture_Obj_6 } );
+    let mesh_Obj_6 = new THREE.Mesh( new THREE.PlaneBufferGeometry( 2000, 2000 ), material_Obj_6 );
+    mesh_Obj_6.position.y = - 0.5;
+    mesh_Obj_6.rotation.x = - Math.PI / 2;
+    mesh_Obj_6.receiveShadow = true;
+    scene.add( mesh_Obj_6 );
 
 
     // poles
 
-    var poleGeo = new THREE.BoxBufferGeometry( 0.5, 100, 0.5 );
-    
+    let geometry_Obj_7 = new THREE.BoxBufferGeometry( 0.5, 100, 0.5 );
+    let material_Obj_7 = new THREE.MeshLambertMaterial(); ;
+    let mesh_Obj_7 = new THREE.Mesh( geometry_Obj_7 , material_Obj_7 );
+    mesh_Obj_7.position.x = 0;
+    mesh_Obj_7.position.y = 0;
+    mesh_Obj_7.receiveShadow = true;
+    mesh_Obj_7.castShadow = true;
+    scene.add( mesh_Obj_7 );
 
-    var mesh = new THREE.Mesh( poleGeo, poleMat );
-    mesh.position.x = 0;
-    mesh.position.y = 0;
-    mesh.receiveShadow = true;
-    mesh.castShadow = true;
-    scene.add( mesh );
 
-    // var mesh = new THREE.Mesh( poleGeo, poleMat );
-    // mesh.position.x = 125;
-    // mesh.position.y = - 62;
-    // mesh.receiveShadow = true;
-    // mesh.castShadow = true;
-    // scene.add( mesh );
-
-    var mesh = new THREE.Mesh( new THREE.BoxBufferGeometry( 255, 5, 5 ), poleMat );
-    mesh.position.y = - 250 + ( 750 / 2 );
-    mesh.position.x = 0;
-    mesh.receiveShadow = true;
-    mesh.castShadow = true;
-    scene.add( mesh );
-
-    // var gg = new THREE.BoxBufferGeometry( 10, 10, 10 );
-    // var mesh = new THREE.Mesh( gg, poleMat );
-    // mesh.position.y = - 250;
-    // mesh.position.x = 125;
-    // mesh.receiveShadow = true;
-    // mesh.castShadow = true;
-    // scene.add( mesh );
-
-    // var mesh = new THREE.Mesh( gg, poleMat );
-    // mesh.position.y = - 250;
-    // mesh.position.x = - 125;
-    // mesh.receiveShadow = true;
-    // mesh.castShadow = true;
-    // scene.add( mesh );
+    let geometry_Obj_8 = new THREE.BoxBufferGeometry( 255, 5, 5 );
+    let material_Obj_8 = new THREE.MeshLambertMaterial();
+    let mesh_Obj_8 = new THREE.Mesh( geometry_Obj_8, material_Obj_8 );
+    mesh_Obj_8.position.y = - 250 + ( 750 / 2 );
+    mesh_Obj_8.position.x = 0;
+    mesh_Obj_8.receiveShadow = true;
+    mesh_Obj_8.castShadow = true;
+    scene.add( mesh_Obj_8 );
 
 
     // renderer
@@ -310,11 +238,9 @@ function init() {
     const startButton = document.getElementById('startButton');
     startButton.addEventListener('click', function () { controls.lock(); }, false);
 
-
     let controls = new PointerLockControls( camera, document.body );
     controls.addEventListener('lock', () => menuPanel.style.display = 'none');
     controls.addEventListener('unlock', () => menuPanel.style.display = 'block');
-
 
     var moveForward = false;
     var moveBackward = false;
@@ -322,7 +248,6 @@ function init() {
     var moveRight = false;
     var canJump = false;
     let prised = false;
-
 
     let onKeyDown = function (event) {
         switch (event.keyCode) {
@@ -438,40 +363,33 @@ function init() {
 
     ///////////////////////////////////////////////////////
 
-    var objects = [];
-    let boxGeometry;
-    var box;   
+    for ( var i = 0; i < 1000; i ++ ) {
 
-for ( var i = 0; i < 1000; i ++ ) {
+        var geometry_Obj_9_array = [];
+        let geometry_Obj_9 = new THREE.BoxGeometry( Math.random() * 1, Math.random() * 1, Math.random() * 1 );
+        let material_Obj_9 = new THREE.MeshLambertMaterial();
+        let mash_Obj_9 = new THREE.Mesh( geometry_Obj_9, material_Obj_9);
+        mash_Obj_9.receiveShadow = true;
+        mash_Obj_9.castShadow = true;
+        mash_Obj_9.position.x = ( Math.random() * 2 - 1 ) * 50 ;
+        mash_Obj_9.position.y = ( Math.random() * 1  ) * 100 + 1;
+        mash_Obj_9.position.z = ( Math.random() * 2 - 1 ) * 50;
+        scene.add( mash_Obj_9 );
 
-        boxGeometry = new THREE.BoxGeometry( Math.random() * 1, Math.random() * 1, Math.random() * 1 );
-
-        box = new THREE.Mesh( boxGeometry, poleMat);
-
-        box.receiveShadow = true;
-        box.castShadow = true;
-
-        box.position.x = ( Math.random() * 2 - 1 ) * 50 ;
-        box.position.y = ( Math.random() * 1  ) * 100 + 1;
-        box.position.z = ( Math.random() * 2 - 1 ) * 50;
-
-        scene.add( box );
-
-        objects.push( box );
+        geometry_Obj_9_array.push( mash_Obj_9 );
     }
 
-//////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////
 
 
-
-var prevTime = performance.now(); // для времени
-var velocity = new THREE.Vector3();  
+    var prevTime = performance.now(); // для времени
+    var velocity = new THREE.Vector3();  
+        
     
-   
-var myVectorEve = new THREE.Vector3();
+    var myVectorEve = new THREE.Vector3();
 
 
-let h_human;
+    let h_human;
 
     function animate() {
 
@@ -484,7 +402,7 @@ let h_human;
 
 
         controls.getDirection(myVectorEve);
-      
+        
 
         if ( controls.isLocked ) {
 
@@ -496,40 +414,37 @@ let h_human;
 
             velocity.x -= velocity.x * k_zameddlenia * deltaTimeSec; // замедление скорости
             velocity.z -= velocity.z * k_zameddlenia * deltaTimeSec;
-    
+        
             if (controls.getObject().position.y > h_human ) {
             velocity.y -= 9.8 * 10.0 * deltaTimeSec; // 100.0 = mass
-            }    
+        }    
 
-            // if ( moveForward ) controls.moveForward(.25 * keyE);
-            // if ( moveBackward ) controls.moveForward(-.25);
-            // if ( moveLeft ) controls.moveRight(-.25);
-            // if ( moveRight ) controls.moveRight(.25);
+        // if ( moveForward ) controls.moveForward(.25 * keyE);
+        // if ( moveBackward ) controls.moveForward(-.25);
+        // if ( moveLeft ) controls.moveRight(-.25);
+        // if ( moveRight ) controls.moveRight(.25);
 
-            let k_uskorenia = 100 ; // кэффицинет ускорения , чем больше тем больше скорость
+        let k_uskorenia = 100 ; // кэффицинет ускорения , чем больше тем больше скорость
 
-            if ( moveForward ) velocity.z -= k_uskorenia * deltaTimeSec * keyE; // нарастание скорости
-            if ( moveBackward ) velocity.z += k_uskorenia * deltaTimeSec * keyE;
-            if ( moveLeft ) velocity.x -= k_uskorenia * deltaTimeSec * keyE;
-            if ( moveRight ) velocity.x += k_uskorenia * deltaTimeSec * keyE;
+        if ( moveForward ) velocity.z -= k_uskorenia * deltaTimeSec * keyE; // нарастание скорости
+        if ( moveBackward ) velocity.z += k_uskorenia * deltaTimeSec * keyE;
+        if ( moveLeft ) velocity.x -= k_uskorenia * deltaTimeSec * keyE;
+        if ( moveRight ) velocity.x += k_uskorenia * deltaTimeSec * keyE;
 
-            controls.getObject().translateX( velocity.x * deltaTimeSec );
-            controls.getObject().translateY( velocity.y * deltaTimeSec );
-            controls.getObject().translateZ( velocity.z * deltaTimeSec );
+        controls.getObject().translateX( velocity.x * deltaTimeSec );
+        controls.getObject().translateY( velocity.y * deltaTimeSec );
+        controls.getObject().translateZ( velocity.z * deltaTimeSec );
 
-            if ( controls.getObject().position.y < h_human ) { // позиция по высоте
-                velocity.y = 0; //
-                controls.getObject().position.y = h_human; // 
-                canJump = true;  //   
-                
-                
-
+        if ( controls.getObject().position.y < h_human ) { // позиция по высоте
+            velocity.y = 0; //
+            controls.getObject().position.y = h_human; // 
+            canJump = true;  //   
+                    
             // myEve_x = camera.position.x;  
 
-
-            }
-            
         }
+            
+    }
 
         stats.update();   
         renderer.render(scene,camera);

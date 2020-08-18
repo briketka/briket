@@ -1,4 +1,5 @@
 body {
+    background-color: #101060;
     margin: 0;
     padding: 0;
     overflow: hidden;
@@ -24,5 +25,5 @@ body {
 }
 
 canvas {
-    background-color: #101060; 
+    background-color: #101090; 
 }

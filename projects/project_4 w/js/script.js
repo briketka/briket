@@ -5,6 +5,8 @@ import * as THREE from "../lib/three/three.module.js";
 import { PointerLockControls } from '../lib/three/PointerLockControls.js';
 import Stats from "../lib/three/stats.module.js";
 
+let raycaster;
+
 
 function init() {
     let canvas = document.getElementById("canvas");
@@ -24,14 +26,16 @@ function init() {
 
     let scene = new THREE.Scene();
     // scene.background = new THREE.Color( 0xcce0ff ); // небо
-    scene.fog = new THREE.Fog( 0xcce0ff, 0, 1500 ); // туман
+    scene.fog = new THREE.Fog(0xcce0ff, 0, 1500); // туман
  
 
     // camera
 
-    let camera = new THREE.PerspectiveCamera( 70, w / h, 0.1, 10000 );
+    let camera = new THREE.PerspectiveCamera(70, w / h, 0.1, 10000);
+    // camera.lookAt(scene.position);
     // camera.position.z = 5;    
-    camera.position.set( -7, 5, 15 );
+    camera.position.set(0, 2, 10);
+    // camera.rotateY(-0.8);
 
 
     // renderer
@@ -100,7 +104,7 @@ function init() {
             break;
         case 69: // e
             // forward
-            if_forse = true;
+            // if_forse = true;
             break;
         case 32: // space
             if ( canJump === true ) velocity.y += 35;
@@ -137,7 +141,7 @@ function init() {
             break;
         case 69: // e
             // forward
-            if_forse = false;
+            // if_forse = false;
             break;
         case 81: // q
             // prised
@@ -158,33 +162,34 @@ function init() {
 
         if(event.which == 1) { // – левая кнопка
             
-            }
+        }
 
         if(event.which == 2) { // – средняя кнопка
             
-            }
+        }
 
         if(event.which == 3) { // – правая кнопка
-            
-            }        
+            if_forse = true;
+        }        
     }
 
     function f_mouseup(event) {
 
         if(event.which == 1) { // – левая кнопка
             
-            }
+        }
 
         if(event.which == 2) { // – средняя кнопка
             
-            }
+        }
 
         if(event.which == 3) { // – правая кнопка
-            
-            }        
+            if_forse = false;
+        }        
     }
 
     //////////////////////////////////////////////////////////////////////////
+
 
     // lights
 
@@ -214,34 +219,42 @@ function init() {
 
     // obj 1 Коробка цветная
 
-    let geometry_Obj_1 = new THREE.BoxBufferGeometry(5.0, 5.0, 5.0);
-    // let material_Obj_1 = new THREE.MeshBasicMaterial();
-    // let material_Obj_1 = new THREE.MeshBasicMaterial( {color: "skyblue"} );
+    let geometry_Obj_1 = new THREE.BoxBufferGeometry(1.0, 1.0, 1.0, 10, 10, 10);
     // let material_Obj_1 = new THREE.MeshStandardMaterial( {color: "skyblue"} );   
-    let material_Obj_1 = new THREE.MeshPhongMaterial({
-            map: loader.load('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTB1VFlMnRT804CBmogyvvPpq3npTLG8sLkxTYtPhbaYpL4zGhu&s'),
-          });
+    let material_Obj_1 = new THREE.MeshStandardMaterial();
+    let texture_Obj_1 = loader.load('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTB1VFlMnRT804CBmogyvvPpq3npTLG8sLkxTYtPhbaYpL4zGhu&s');
+    
+    texture_Obj_1.anisotropy = 16;
+    texture_Obj_1.encoding = THREE.sRGBEncoding;
 
+    material_Obj_1.map = texture_Obj_1 ;    
+    material_Obj_1.roughnessMap = texture_Obj_1 ;
 
-    // let material_Obj_1 = new THREE.MeshBasicMaterial({color: 0xffffff, vertexColors: THREE.FaceColors});
-    // for (let i=0; i < geometry_Obj_1.faces.length; i++) {
-    //     geometry_Obj_1.faces[i].color.setRGB(Math.random(),Math.random(),Math.random())
-    // }
     let mesh_Obj_1 = new THREE.Mesh(geometry_Obj_1, material_Obj_1);
-    mesh_Obj_1.position.set(-5, 5, 0);   
+    mesh_Obj_1.position.set(5, 2, 0);   
     scene.add(mesh_Obj_1);
 
 
     // obj 2 Коробка белая
 
-    let geometry_Obj_2 = new THREE.BoxGeometry(1,1,1);
-    let material_Obj_2 = new THREE.MeshLambertMaterial();
+    let geometry_Obj_2 = new THREE.BoxBufferGeometry(1, 1, 1, 10, 10, 100);
+    let material_Obj_2 = new THREE.MeshStandardMaterial();
+
+    material_Obj_2.map = loader.load('img/plaster.jpg');
+
+    material_Obj_2.anisotropy = 16;
+    material_Obj_2.encoding = THREE.sRGBEncoding;
+
+    material_Obj_2.normalMap = loader.load('img/plaster-normal.jpg');
+    material_Obj_2.normalMapType = 0;
+
     let mesh_Obj_2 = new THREE.Mesh(geometry_Obj_2, material_Obj_2);
-    mesh_Obj_2.position.set(-3 , 0.0, 4 );
+    mesh_Obj_2.position.set(10, 2, 0 );
     mesh_Obj_2.receiveShadow = true;
     mesh_Obj_2.castShadow = true;
+
     scene.add(mesh_Obj_2);
- 
+
  
     // obj 3 Синяя линия
  
@@ -298,7 +311,7 @@ function init() {
         material_Obj_4_Array[i].side = THREE.BackSide;
     }
  
-    let gepmetry_Obj_4 = new THREE.BoxGeometry(2000,2000,2000);  
+    let gepmetry_Obj_4 = new THREE.BoxBufferGeometry(2000,2000,2000);  
     let mash_Obj_4 = new THREE.Mesh(gepmetry_Obj_4 , material_Obj_4_Array);
     mash_Obj_4.position.set(0 , 0 , 0 );
     scene.add(mash_Obj_4);
@@ -332,31 +345,141 @@ function init() {
  
     // obj 5 sphere Сфера
  
-    var geometry_Obj_5 = new THREE.SphereBufferGeometry( 0.3, 32, 16 );
-    var material_Obj_5 = new THREE.MeshLambertMaterial();
-    var mash_Obj_5 = new THREE.Mesh( geometry_Obj_5, material_Obj_5 );
-    mash_Obj_5.castShadow = true;
-    mash_Obj_5.receiveShadow = true;
-    mash_Obj_5.visible = true;
-    mash_Obj_5.position.set(10,2,-20);
-    scene.add( mash_Obj_5 );
+    var geometry_Obj_5 = new THREE.SphereBufferGeometry( 5, 32, 32 );
+    var material_Obj_5 = new THREE.MeshStandardMaterial();
+    var mesh_Obj_5 = new THREE.Mesh( geometry_Obj_5, material_Obj_5 );
+    mesh_Obj_5.castShadow = true;
+    mesh_Obj_5.receiveShadow = true;
+    mesh_Obj_5.visible = true;
+    mesh_Obj_5.position.set(15, 10, 0);
+
+    let Obj_5_texture_map = loader.load('img/earthicefreemask.gif');
+    
+    // Obj_5_texture_map.anisotropy = 16;
+    // Obj_5_texture_map.encoding = THREE.sRGBEncoding;
+    
+    material_Obj_5.map = Obj_5_texture_map;
+    material_Obj_5.bumpMap = Obj_5_texture_map;
+    material_Obj_5.displacementMap = Obj_5_texture_map;
+    material_Obj_5.displacementScale = 0.2;   
+    material_Obj_5.roughnessMap = Obj_5_texture_map;
+   
+        // map
+        // bumpMap
+        // displacementMap displacementScale = 1;
+        // roughnessMap
+
+        // aoMap
+        // emissiveMap
+        // normalMap   normalMapType = 1;
+    
+    scene.add( mesh_Obj_5 );
  
  
+
+
+
+
+
+    /////////////////////////////////////////////////////////////////////////
+
     // obj 6 ground Земля - трава
  
-    let texture_Obj_6 = loader.load( 'img/grasslight-big.jpg' );
-    texture_Obj_6.wrapS = texture_Obj_6.wrapT = THREE.RepeatWrapping;
-    texture_Obj_6.repeat.set( 300, 300 );
-    texture_Obj_6.anisotropy = 16;
-    texture_Obj_6.encoding = THREE.sRGBEncoding;
-    let material_Obj_6 = new THREE.MeshLambertMaterial( { map: texture_Obj_6 } );
-    let mesh_Obj_6 = new THREE.Mesh( new THREE.PlaneBufferGeometry( 2000, 2000 ), material_Obj_6 );
-    mesh_Obj_6.position.y = - 0.0;
-    mesh_Obj_6.rotation.x = - Math.PI / 2;
-    mesh_Obj_6.receiveShadow = true;
-    scene.add( mesh_Obj_6 );
- 
- 
+
+    //return array with height data from img
+    function getHeightData(img, scale) {
+     
+        if (scale == undefined) scale = 1;
+        
+            let canvas = document.createElement( 'canvas' );
+            canvas.width = img.width;
+            canvas.height = img.height;
+
+            let context = canvas.getContext('2d');
+            context.drawImage(img, 0, 0);
+  
+            let size = img.width * img.height;
+
+            var data = new Float32Array( size );
+    
+            for ( var i = 0; i < size; i ++ ) {
+                data[i] = 0
+            }
+   
+            let imgd = context.getImageData(0, 0, img.width, img.height);
+            var pix = imgd.data;
+   
+            var j=0;
+            for (var i = 0; i < pix.length; i += 4) {
+                var all = pix[i] + pix[i + 1] + pix[i + 2];
+                data[j++] = all / (3 * scale);
+            }
+
+            return data;
+        }
+
+    let img = new Image();
+    img.src = '../img/3.jpg';
+
+    let landshaft_hiegth_array = [];
+
+
+    let material_Obj_6;
+    let geometry_Obj_6;
+    let mesh_Obj_6
+
+    img.onload = function() {
+
+        landshaft_hiegth_array = getHeightData(img, 1);
+
+
+        let texture_Obj_6 = loader.load( 'img/grasslight-big.jpg' );
+        texture_Obj_6.wrapS  = texture_Obj_6.wrapT = THREE.RepeatWrapping;
+        texture_Obj_6.repeat.set( 100, 100 );
+        texture_Obj_6.anisotropy = 16;
+        texture_Obj_6.encoding = THREE.sRGBEncoding;
+    
+        material_Obj_6 = new THREE.MeshStandardMaterial( { 
+            map: texture_Obj_6,
+            // displacementMap: loader.load('img/ground_map.png'),
+            // displacementScale: 20.0,       
+        } );
+    
+        // material_Obj_6.displacementMap = loader.load('img/ground_map.png');
+        // material_Obj_6.displacementScale = 20.0;
+
+
+        // let mesh_Obj_6 = new THREE.Mesh( new THREE.PlaneBufferGeometry( 100, 100, 1, 1), material_Obj_6 );
+        geometry_Obj_6 = new THREE.PlaneGeometry( 2000, 2000, 99, 99);
+        
+        console.log(geometry_Obj_6.vertices.length);
+
+        for (let i = 0; i < geometry_Obj_6.vertices.length; i++) {
+            // let vertex = geometry_Obj_6.vertices[i];
+            // vertex.z = Math.random() * 10;
+            // vertex.z = landshaft_hiegth_array[i] * 0.05;
+            // geometry_Obj_6.vertices[i] = data[i] * 0.1;
+            // geometry_Obj_6.vertices[i] = landshaft_hiegth_array[i] *0.0000000001;
+            geometry_Obj_6.vertices[i].z = landshaft_hiegth_array[i] * 0.15;
+            
+            // console.log(i);           
+            // console.log(landshaft_hiegth_array[i]);
+
+        }
+
+        mesh_Obj_6 = new THREE.Mesh( geometry_Obj_6, material_Obj_6 );
+
+        mesh_Obj_6.position.y = - 0.0;
+        mesh_Obj_6.rotation.x =  - Math.PI / 2;
+        mesh_Obj_6.receiveShadow = true;
+
+        scene.add( mesh_Obj_6 );
+
+    };
+
+    //////////////////////////////////////////////////////////////////////////  
+
+
     // obj 7 Вертикальный столб
  
     let geometry_Obj_7 = new THREE.BoxBufferGeometry( 0.5, 100, 0.5 );
@@ -415,6 +538,32 @@ function init() {
     let a=0;
 
 
+
+    // var castFrom = new THREE.Vector3();
+    // var castDirection = new THREE.Vector3(0,-1,0);
+
+    // let raycaster = new THREE.Raycaster(camera.position.clone(), new THREE.Vector3(0, -1, 0));
+    // castFrom.copy(camera.position);
+    // castFrom.y += 1000;
+    // raycaster.set(castFrom,castDirection);
+    // // raycaster.ray.origin.copy(camera.position);
+
+    // // let intersections = raycaster.intersectObject(terrain);
+    // let intersections = raycaster.intersectObject(mesh_Obj_6);
+
+    // if (intersections.length > 0) {
+    //     // var distance = intersections[0].distance;
+    //     // if(distance > 0 && distance < 10){
+    //     // camera.position.y= intersections[0].point.y + 20;
+    //     camera.position.y = intersections[0].point.y+20;
+        
+    // }
+
+
+    raycaster = new THREE.Raycaster( new THREE.Vector3(), new THREE.Vector3( 0, - 1, 0 ), 0, 10 );
+
+
+
     function update() {
         // controls.update();
         stats.update();
@@ -424,6 +573,21 @@ function init() {
             let time = performance.now();
             var deltaTimeSec = ( time - prevTime ) / 1000;
             prevTime = time;
+
+
+
+
+            raycaster.ray.origin.copy( controls.getObject().position );
+					raycaster.ray.origin.y -= 10;
+
+					var intersections = raycaster.intersectObjects( mesh_Obj_6 );
+
+					var onObject = intersections.length > 0;
+
+
+
+
+
 
 
             // if ( moveForward ) controls.moveForward(.25 );
@@ -480,14 +644,19 @@ function init() {
 
             a++;
 
-            console.log(a)
+            // console.log(a)
             let varV = 1 + 0.2 * Math.sin(0.01 * a * 5);
             mesh_Obj_1.scale.set(1 * varV , 1 * varV, 1 * varV);
             mesh_Obj_1.rotation.x += 0.01;
             mesh_Obj_1.rotation.y += 0.01;
             mesh_Obj_1.rotation.z += 0.01;
 
+            mesh_Obj_2.rotation.y += 0.01;
+            mesh_Obj_5.rotation.y += 0.01;
+
             // camera.rotateY(0.005);
+
+            // camera.position.y = geometry_Obj_6.position.y;
 
 
         }    

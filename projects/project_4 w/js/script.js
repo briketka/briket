@@ -452,7 +452,7 @@ function init() {
         // let mesh_Obj_6 = new THREE.Mesh( new THREE.PlaneBufferGeometry( 100, 100, 1, 1), material_Obj_6 );
         geometry_Obj_6 = new THREE.PlaneGeometry( 2000, 2000, 99, 99);
         
-        console.log(geometry_Obj_6.vertices.length);
+        // console.log(geometry_Obj_6.vertices.length);
 
         for (let i = 0; i < geometry_Obj_6.vertices.length; i++) {
             // let vertex = geometry_Obj_6.vertices[i];
@@ -560,7 +560,7 @@ function init() {
     // }
 
 
-    raycaster = new THREE.Raycaster( new THREE.Vector3(), new THREE.Vector3( 0, - 1, 0 ), 0, 10 );
+    // raycaster = new THREE.Raycaster( new THREE.Vector3(), new THREE.Vector3( 0, - 1, 0 ), 0, 10 );
 
 
 
@@ -577,12 +577,12 @@ function init() {
 
 
 
-            raycaster.ray.origin.copy( controls.getObject().position );
-					raycaster.ray.origin.y -= 10;
+            // raycaster.ray.origin.copy( controls.getObject().position );
+			// 		raycaster.ray.origin.y -= 10;
 
-					var intersections = raycaster.intersectObjects( mesh_Obj_6 );
+			// 		var intersections = raycaster.intersectObjects( mesh_Obj_6 );
 
-					var onObject = intersections.length > 0;
+			// 		var onObject = intersections.length > 0;
 
 
 
